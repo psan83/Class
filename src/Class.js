@@ -13,6 +13,17 @@
         return obj ? obj : defaultValue;
     }
 
+    // checks if a value is in a array
+    function _inArray(value, compareTo) {
+        for (var key in compareTo) {
+            if (value == key) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
     // copies objects from one object to another
     // accept: varibles to accept, defaults to from 
     function _copy(from, to, accept) {
@@ -122,6 +133,14 @@
         // set static properties 
         for (var key in config.static) {
             Class[key] = config.static[key];
+        }
+
+        // set inherited static properties
+        for (var key in this) {
+            var isInArray =_inArray(key, ['$extend', 'prototype']);
+            if (!isInArray) {
+                Class[key] = this[key];
+            }
         }
 
         // set scope to private functions 

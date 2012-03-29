@@ -360,7 +360,7 @@
     test("normal", function () {
 
         // three tests 
-        expect(3);
+        expect(6);
 
         // prepare tests
         var MAX_AGE = 100;
@@ -384,7 +384,15 @@
             }
         });
 
-        var person = new Person();
+        var GrandChild = Person.$extend({
+            public: {
+                getMaxAge: function () {
+                    return this.$class.MAX_AGE;
+                }
+            }
+        });
+
+        var child = new Child();
 
         // inherit: get static from inherited class
         equal(Child.MAX_AGE, MAX_AGE, "Expected " + MAX_AGE + " as the result, result was: " + Child.MAX_AGE);
@@ -394,6 +402,17 @@
         
         // inherit: get static from public function
         equal(child.getMaxAge(), MAX_AGE, "Expected " + MAX_AGE + " as the result, result was: " + child.getMaxAge());
+
+        var grandChild = new GrandChild();
+
+        // inherit inherit: get static from inherited class
+        equal(GrandChild.MAX_AGE, MAX_AGE, "Expected " + MAX_AGE + " as the result, result was: " + GrandChild.MAX_AGE);
+
+        // inherit inherit: get static from inherited object instance
+        equal(grandChild.$class.MAX_AGE, MAX_AGE, "Expected " + MAX_AGE + " as the result, result was: " + grandChild.$class.MAX_AGE);
+        
+        // inherit inherit: get static from public function
+        equal(grandChild.getMaxAge(), MAX_AGE, "Expected " + MAX_AGE + " as the result, result was: " + grandChild.getMaxAge());
     });
 
     //    module("inherit");
