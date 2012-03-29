@@ -317,7 +317,7 @@
     module("static");
 
     // test access to private variable via public function
-    test("variable", function () {
+    test("normal", function () {
 
         // three tests 
         expect(6);
@@ -354,6 +354,37 @@
         
         // get static from public function
         equal(person.getMaxAge(), MAX_AGE, "Expected " + MAX_AGE + " as the result, result was: " + person.getMaxAge());
+    });
+
+    // test access to private variable via public function
+    test("normal", function () {
+
+        // three tests 
+        expect(6);
+
+        // prepare tests
+        var MAX_AGE = 100;
+
+        var Person = Class.$extend({
+            static: {
+                MAX_AGE: MAX_AGE
+            },
+            public: {
+                getMaxAge: function () {
+                    return this.$class.MAX_AGE;
+                }
+            }
+        });
+
+        var Child = Person.$extend({
+            public: {
+                getMaxAge: function () {
+                    return this.$class.MAX_AGE;
+                }
+            }
+        });
+
+        var person = new Person();
 
         // inherit: get static from inherited class
         equal(Child.MAX_AGE, MAX_AGE, "Expected " + MAX_AGE + " as the result, result was: " + Child.MAX_AGE);
