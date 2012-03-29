@@ -47,3 +47,27 @@ Runs when the object is created
 
     // instead get it through a public helper function 
     var nameHelperFunction = parent.getName();
+    
+## Inheritage
+
+### Example
+
+    var Parent = Class.$extend({
+        private: {
+            name: "Andreas"
+        },
+        public: {
+            getName: function() {
+                return this.name;
+            }
+        }
+    });
+    
+    var Child = Parent.$extend({
+        // empty
+    });
+    
+    var child = new Child();
+    
+    // returns "Andreas"
+    child.getName();
