@@ -312,8 +312,6 @@
         equal(child.getName(), name, "Expected " + name + " as the result, result was: " + child.getName());
     });
 
-
-
     module("static");
 
     // test access to private variable via public function
@@ -357,7 +355,7 @@
     });
 
     // test access to private variable via public function
-    test("normal", function () {
+    test("inherit", function () {
 
         // three tests 
         expect(6);
@@ -413,6 +411,72 @@
         
         // inherit inherit: get static from public function
         equal(grandChild.getMaxAge(), MAX_AGE, "Expected " + MAX_AGE + " as the result, result was: " + grandChild.getMaxAge());
+    });
+
+    module("mixin");
+
+    // test access to private variable via public function
+    test("normal", function () {
+
+        // three tests 
+        expect(2);
+
+        // prepare tests
+        var variable = 100;
+        var fnVariable = "a function";
+        var fn = function() {
+            return fnVariable;
+        }
+
+        var mixin = {
+            variable: variable,
+            fn: 1
+        }
+
+        var Person = Class.$extend({
+            mixins: [mixin]
+        });
+
+        var person = new Person();
+        
+        // get mixin varable
+        equal(person.variable, variable, "Expected " + variable + " as the result, result was: " + person.variable);
+
+        // get result from mixin function
+        equal(person.fn(), fnVariable, "Expected " + fnVariable + " as the result, result was: " + person.fn());
+    });
+
+    // test access to private variable via public function
+    test("inherit", function () {
+
+        // three tests 
+        expect(2);
+
+        // prepare tests
+        var variable = 100;
+        var fnVariable = "a function";
+        var fn = function() {
+            return fnVariable;
+        }
+
+        var mixin = {
+            variable: variable,
+            fn: 1
+        }
+
+        var Person = Class.$extend({
+            mixins: [mixin]
+        });
+
+        var Child = Person.$extend();
+
+        var child = new Child();
+        
+        // get mixin varable
+        equal(child.variable, variable, "Expected " + variable + " as the result, result was: " + child.variable);
+
+        // get result from mixin function
+        equal(child.fn(), fnVariable, "Expected " + fnVariable + " as the result, result was: " + child.fn());
     });
 
     //    module("inherit");
