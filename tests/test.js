@@ -320,7 +320,7 @@
     test("normal", function () {
 
         // three tests 
-        expect(6);
+        expect(3);
 
         // prepare tests
         var MAX_AGE = 100;
@@ -360,7 +360,7 @@
     test("normal", function () {
 
         // three tests 
-        expect(6);
+        expect(3);
 
         // prepare tests
         var MAX_AGE = 100;
