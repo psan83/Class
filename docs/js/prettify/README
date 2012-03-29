@@ -1,0 +1,25 @@
+Prettify - Syntax Highlighter for Wolf CMS
+
+INSTALLING
+
+1. Unpack "prettify.zip" to your "/wolf/plugins/" folder
+2. Login to your Admin area
+3. Enable plugin under Administration tab
+
+SETUP
+
+1. In your Layout add: <?php prettify(); ?> between your <head> tags
+2. Add onload="prettyPrint()"  to your document's body tag
+
+USAGE
+
+Put code snippets in 
+<pre class="prettyprint">YOUR CODE GOES HERE</pre>  or 
+<code class="prettyprint">YOUR CODE GOES HERE</code>  and it will automatically be pretty printed. 
+
+If you are using Textile filter for text input, you can easily call the script like this:
+
+bc(prettyprint). YOUR CODE GOES HERE
+
+To highlight just CSS code, type: <pre class="prettyprint lang-css">YOUR CODE GOES HERE</pre> or 
+in Textile bc(prettyprint lang-css). YOUR CODE GOES HERE
