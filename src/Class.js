@@ -59,6 +59,10 @@
                             scope.$super = _super[key];
                         }
 
+                        if (_super) {
+                            scope.$class = Class;
+                        }
+
                         // The method only need to be bound temporarily, so we
                         // remove it when we're done executing
                         var ret = fn.apply(scope, arguments);
@@ -76,10 +80,14 @@
 
         // The dummy class constructor
         function Class() {
+
             // All construction is actually done in the init method
             if (!initializing && config.init) {
                 config.init.apply(this, arguments);
             }
+
+            // add referende to class  
+            this.$class = Class;
         }
 
         // Populate our constructed prototype object
@@ -95,9 +103,10 @@
         config = _default(config, {});
         config.init = _default(config.init, null);
 
-        // variables
+        // default variables
         config.private = _default(config.private, {});
         config.public = _default(config.public, {});
+        config.static = _default(config.static, {});
 
         // add init to the object
         Class.prototype.init = config.init;
@@ -109,6 +118,11 @@
         _copy(config.public, Class.prototype);
         _applyScope(Class.prototype);
         _copy(Class.prototype, config.public);
+
+        // set static properties 
+        for (var key in config.static) {
+            Class[key] = config.static[key];
+        }
 
         // set scope to private functions 
         _applyScope(config.private);

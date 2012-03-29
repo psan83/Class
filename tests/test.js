@@ -327,7 +327,7 @@
 
         var Person = Class.$extend({
             static: {
-                MAX_AGE: null
+                MAX_AGE: MAX_AGE
             },
             public: {
                 getMaxAge: function () {
@@ -345,22 +345,22 @@
         });
 
         var person = new Person();
-
-        // get static from object instance
-        equal(person.$class.MAX_AGE, MAX_AGE, "Expected " + MAX_AGE + " as the result, result was: " + person.$class.MAX_AGE);
         
         // get static from class
         equal(Person.MAX_AGE, MAX_AGE, "Expected " + MAX_AGE + " as the result, result was: " + Person.MAX_AGE);
 
+        // get static from object instance
+        equal(person.$class.MAX_AGE, MAX_AGE, "Expected " + MAX_AGE + " as the result, result was: " + person.$class.MAX_AGE);
+        
         // get static from public function
         equal(person.getMaxAge(), MAX_AGE, "Expected " + MAX_AGE + " as the result, result was: " + person.getMaxAge());
+
+        // inherit: get static from inherited class
+        equal(Child.MAX_AGE, MAX_AGE, "Expected " + MAX_AGE + " as the result, result was: " + Child.MAX_AGE);
 
         // inherit: get static from inherited object instance
         equal(child.$class.MAX_AGE, MAX_AGE, "Expected " + MAX_AGE + " as the result, result was: " + child.$class.MAX_AGE);
         
-        // inherit: get static from inherited class
-        equal(Child.MAX_AGE, MAX_AGE, "Expected " + MAX_AGE + " as the result, result was: " + Child.MAX_AGE);
-
         // inherit: get static from public function
         equal(child.getMaxAge(), MAX_AGE, "Expected " + MAX_AGE + " as the result, result was: " + child.getMaxAge());
     });
