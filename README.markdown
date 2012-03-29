@@ -1,13 +1,16 @@
 # Class
 
 ## Basic structure
-All variables are arranged under the type of variable it is. The basic types are public and private.</p>
+All variables are arranged under the type of variable it is. The basic types are public, private and static properties. Add a constructor by adding the function "init"</p>
 
 ### Public
 Public variables are accessable from the object instance. 
 
 ### Private
 Private variables are accessable from a object function internally and not from the "outside". You could add a public function that has access to a private property and return it.
+
+### Static
+Static variables are accessable from the Class or object.$class.
 
 ### Constructor
 Runs when the object is created
@@ -18,6 +21,9 @@ Runs when the object is created
         private: {
             name: "",
         },
+        static: {
+            MAX_AGE: 100
+        }
         public: {
             age: 0,
             getAge: function () {
@@ -47,6 +53,12 @@ Runs when the object is created
 
     // instead get it through a public helper function 
     var nameHelperFunction = parent.getName();
+    
+    // access static property from Class
+    var maxAge = Parent.MAX_AGE;
+    
+    // access static property from object
+    var maxAge = parent.$class.MAX_AGE;
     
 ## Inheritance
 
