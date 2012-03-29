@@ -48,7 +48,7 @@ Runs when the object is created
     // instead get it through a public helper function 
     var nameHelperFunction = parent.getName();
     
-## Inheritage
+## Inheritance
 
 ### Example
 
