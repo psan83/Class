@@ -413,7 +413,7 @@
         equal(grandChild.getMaxAge(), MAX_AGE, "Expected " + MAX_AGE + " as the result, result was: " + grandChild.getMaxAge());
     });
 
-    module("mixin");
+    module("mixins");
 
     // test access to private variable via public function
     test("normal", function () {

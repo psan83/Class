@@ -8,13 +8,13 @@
     var initializing = false;
 
     /** 
-     * Checks if a object is null or undefined and returns a default value if it is. 
-     * 
-     * @param   {object}    obj           Object to check 
-     * @param   {object}    defaultValue  Default value to return is object is null or undefined
-     *
-     * @returns {object}    obj if it's not null or empty, in that case it will return the default value 
-     */
+    * Checks if a object is null or undefined and returns a default value if it is. 
+    * 
+    * @param   {object}    obj           Object to check 
+    * @param   {object}    defaultValue  Default value to return is object is null or undefined
+    *
+    * @returns {object}    obj if it's not null or empty, in that case it will return the default value 
+    */
     function _default(obj, defaultValue) {
         return obj ? obj : defaultValue;
     }
@@ -50,7 +50,7 @@
 
     /** 
     * Creates a array if it's not already a array
-    * 
+    *
     * @param    {object}  obj  Object to check
     *
     * @returns  {array}   The created array
@@ -63,10 +63,10 @@
         return [obj];
     }
 
-    // copies objects from one object to another
-    // accept: varibles to accept, defaults to from 
     /** 
     * Copies objects from one object to another
+    *
+    * @todo     add support for arrays to and not only objects (accept)
     * 
     * @param    {object}    from        Copy from this object
     * @param    {object}    to          Copy to this object
@@ -165,6 +165,23 @@
         config.public = _default(config.public, {});
         config.static = _default(config.static, {});
 
+        // add mixins
+        if (config.mixins) {
+
+            // create array if it's not already an array
+            var mixins = _createArray(config.mixins);
+
+            // go though all mixins 
+            for (var index in mixins) {
+
+                // copy mixin-values to config
+                var mixin = mixins[index];
+                for (var key in mixins[index]) {
+                    _copy(mixin[key], config[key]);
+                }
+            }
+        }
+
         // add init to the object
         Class.prototype.init = config.init;
 
@@ -182,8 +199,13 @@
         }
 
         // set inherited static properties
+        // todo: use _copy ? 
         for (var key in this) {
+
+            // don't copy these properties 
             var isInArray = _inArray(key, ['$extend', 'prototype']);
+
+            // copy properties that are allowed to be copied
             if (!isInArray) {
                 Class[key] = this[key];
             }
