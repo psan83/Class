@@ -6,16 +6,27 @@
 // Modyfied version of http://ejohn.org/blog/simple-javascript-inheritance/
 (function () {
     var initializing = false;
-    // var fnTest = /xyz/.test(function () { xyz; }) ? /\b_super\b/ : /.*/;
 
-    // sets a default value if the object is not set
+    /** 
+     * Checks if a object is null or undefined and returns a default value if it is. 
+     * 
+     * @param   {object}    obj           Object to check 
+     * @param   {object}    defaultValue  Default value to return is object is null or undefined
+     *
+     * @returns {object}    obj if it's not null or empty, in that case it will return the default value 
+     */
     function _default(obj, defaultValue) {
         return obj ? obj : defaultValue;
     }
 
-    // checks if a value is in a array
-    // value: value to search for in array
-    // arr  : array
+    /** 
+    * Checks if a value is present in a array
+    * 
+    * @param    {object}   value  Value to look for 
+    * @param    {array}    arr    Array to search for value in
+    *
+    * @returns  {bool}     true if the value is found in the array, otherwise false
+    */
     function _inArray(value, arr) {
         for (var key in arr) {
             if (value == key) {
@@ -26,11 +37,24 @@
         return false;
     }
 
+    /** 
+    * Checks if a value is a array
+    * 
+    * @param    {object}  obj  Object to check
+    *
+    * @returns  {bool}    true if the value is a array, otherwise false
+    */
     function _isArray(obj) {
         return Object.prototype.toString.call(obj) === '[object Array]';
     }
 
-    // creates a array from a variable if it's not already a array
+    /** 
+    * Creates a array if it's not already a array
+    * 
+    * @param    {object}  obj  Object to check
+    *
+    * @returns  {array}   The created array
+    */
     function _createArray(obj) {
         if (_isArray(obj)) {
             return obj;
@@ -41,6 +65,13 @@
 
     // copies objects from one object to another
     // accept: varibles to accept, defaults to from 
+    /** 
+    * Copies objects from one object to another
+    * 
+    * @param    {object}    from        Copy from this object
+    * @param    {object}    to          Copy to this object
+    * @param    [object]    [accept]    The properties copied from "from" must exist in this object. If not used, the default value will be "from" (all).
+    */
     function _copy(from, to, accept) {
         accept = accept ? accept : from;
         for (var key in from) {
