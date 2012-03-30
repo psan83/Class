@@ -10,7 +10,7 @@ Public variables are accessable from the object instance.
 Private variables are accessable from a object function internally and not from the "outside". You could add a public function that has access to a private property and return it.
 
 ### Static
-Static variables are accessable from the Class or object.$class. When inheriting from another class, the static properties will be COPIED to the new class and therefor it has not reference to the old property.
+Static variables are accessable from the Class or object.$class. When inheriting from another class, the static properties will be COPIED to the new class and therefore it has not reference to the old property.
 
 ### Constructor
 Runs when the object is created
@@ -83,3 +83,35 @@ Runs when the object is created
     
     // returns "Andreas"
     child.getName();
+    
+## Mixin
+Adds functionality from a object to one or multiple classes.
+
+### Example
+
+    var mixin = {
+        private: {
+            privateVariable: "secret!"
+        },
+        public: {
+            variable: "a public text",
+            fn: function() {
+                return this.privateVariable;
+            }
+        }
+    }
+
+    var Person = Class.$extend({
+        mixins: [mixin]
+    });
+
+    var person = new Person();
+        
+    // return undefined (can't access private mixin variables)
+    person.privateVariable;
+        
+    // returns "a public variable" because you can access public mixin variables
+    person.variable;
+
+    // returns "secret!", because a public mixin function has access to a private mixin variable
+    person.fn();
