@@ -83,3 +83,35 @@ Runs when the object is created
     
     // returns "Andreas"
     child.getName();
+    
+## Mixin
+Adds functionality from a object to one or multiple classes.
+
+### Example
+
+    var mixin = {
+        private: {
+            privateVariable: "secret!"
+        },
+        public: {
+            variable: "a public text",
+            fn: function() {
+                return this.privateVariable;
+            }
+        }
+    }
+
+    var Person = Class.$extend({
+        mixins: [mixin]
+    });
+
+    var person = new Person();
+        
+    // return undefined (can't access private mixin variables)
+    person.privateVariable;
+        
+    // returns "a public variable" because you can access public mixin variables
+    person.variable;
+
+    // returns "secret!", because a public mixin function has access to a private mixin variable
+    person.fn();
