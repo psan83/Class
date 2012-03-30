@@ -14,14 +14,29 @@
     }
 
     // checks if a value is in a array
-    function _inArray(value, compareTo) {
-        for (var key in compareTo) {
+    // value: value to search for in array
+    // arr  : array
+    function _inArray(value, arr) {
+        for (var key in arr) {
             if (value == key) {
                 return true;
             }
         }
-        
+
         return false;
+    }
+
+    function _isArray(obj) {
+        return Object.prototype.toString.call(obj) === '[object Array]';
+    }
+
+    // creates a array from a variable if it's not already a array
+    function _createArray(obj) {
+        if (_isArray(obj)) {
+            return obj;
+        }
+
+        return [obj];
     }
 
     // copies objects from one object to another
@@ -137,7 +152,7 @@
 
         // set inherited static properties
         for (var key in this) {
-            var isInArray =_inArray(key, ['$extend', 'prototype']);
+            var isInArray = _inArray(key, ['$extend', 'prototype']);
             if (!isInArray) {
                 Class[key] = this[key];
             }

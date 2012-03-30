@@ -419,18 +419,22 @@
     test("normal", function () {
 
         // three tests 
-        expect(2);
+        expect(3);
 
         // prepare tests
         var variable = 100;
-        var fnVariable = "a function";
-        var fn = function() {
-            return fnVariable;
-        }
+        var privateVariable = 10;
 
         var mixin = {
-            variable: variable,
-            fn: 1
+            private: {
+                privateVariable: privateVariable
+            },
+            public: {
+                variable: variable,
+                fn: function() {
+                    return this.privateVariable;
+                }
+            }
         }
 
         var Person = Class.$extend({
@@ -439,29 +443,36 @@
 
         var person = new Person();
         
+        // try to get private mixin variable
+        equal(person.privateVariable, undefined, "Expected undefined as the result, result was: " + person.privateVariable);
+        
         // get mixin varable
         equal(person.variable, variable, "Expected " + variable + " as the result, result was: " + person.variable);
 
-        // get result from mixin function
-        equal(person.fn(), fnVariable, "Expected " + fnVariable + " as the result, result was: " + person.fn());
+        // get result from mixin public function that gets the value from private mixin variable
+        equal(person.fn(), privateVariable, "Expected " + privateVariable + " as the result, result was: " + person.fn());
     });
 
     // test access to private variable via public function
     test("inherit", function () {
 
         // three tests 
-        expect(2);
+        expect(3);
 
         // prepare tests
         var variable = 100;
-        var fnVariable = "a function";
-        var fn = function() {
-            return fnVariable;
-        }
+        var privateVariable = 10;
 
         var mixin = {
-            variable: variable,
-            fn: 1
+            private: {
+                privateVariable: privateVariable
+            },
+            public: {
+                variable: variable,
+                fn: function() {
+                    return this.privateVariable;
+                }
+            }
         }
 
         var Person = Class.$extend({
@@ -472,11 +483,14 @@
 
         var child = new Child();
         
+        // try to get private mixin variable
+        equal(child.privateVariable, undefined, "Expected undefined as the result, result was: " + child.privateVariable);
+        
         // get mixin varable
         equal(child.variable, variable, "Expected " + variable + " as the result, result was: " + child.variable);
 
-        // get result from mixin function
-        equal(child.fn(), fnVariable, "Expected " + fnVariable + " as the result, result was: " + child.fn());
+        // get result from mixin public function that gets the value from private mixin variable
+        equal(child.fn(), privateVariable, "Expected " + privateVariable + " as the result, result was: " + child.fn());
     });
 
     //    module("inherit");
