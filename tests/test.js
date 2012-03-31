@@ -451,6 +451,7 @@
 
         // get result from mixin public function that gets the value from private mixin variable
         equal(person.fn(), privateVariable, "Expected " + privateVariable + " as the result, result was: " + person.fn());
+
     });
 
     // test access to private variable via public function

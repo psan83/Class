@@ -71,14 +71,18 @@
     * @param    {object}    from        Copy from this object
     * @param    {object}    to          Copy to this object
     * @param    [object]    [accept]    The properties copied from "from" must exist in this object. If not used, the default value will be "from" (all).
+    *
+    * @returns  {object}     Copied items 
     */
     function _copy(from, to, accept) {
+        var copied = {}
         accept = accept ? accept : from;
         for (var key in from) {
             if (accept[key] !== undefined) {
-                to[key] = from[key];
+                copied[key] = to[key] = from[key];
             }
         }
+        return copied;
     }
 
     // The base Class implementation (does nothing)
@@ -108,14 +112,15 @@
 
                         // setup scope 
                         var scope = {};
-                        _copy(config.private, scope, config.private);
-                        _copy(this, scope, config.public);
+                        _copy(config.private, scope);
+                        _copy(this, scope);
 
                         // add $super if parent has the same function
                         if (typeof _super[key] == "function") {
                             scope.$super = _super[key];
                         }
 
+                        // add reference to parent class
                         if (_super) {
                             scope.$class = Class;
                         }
