@@ -16,7 +16,7 @@
     * @returns {object}    obj if it's not null or empty, in that case it will return the default value 
     */
     function _default(obj, defaultValue) {
-        return obj ? obj : defaultValue;
+        return (obj != null && obj != undefined) ? obj : defaultValue;
     }
 
     /** 
