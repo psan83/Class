@@ -310,6 +310,37 @@
 
         // getName belongs to the childs parent and therefor it has access to the private properties
         equal(child.getName(), name, "Expected " + name + " as the result, result was: " + child.getName());
+    });    
+    
+    // tests that the super constructor is called if no cunstructor is used in child class
+    test("inherit constructor", function () {
+
+        // three tests 
+        expect(2);
+
+        // prepare tests
+        var Person = Class.$extend({
+            public: {
+                initiated: false
+            },
+            init: function() {
+                this.initiated = true;
+            }
+        });
+
+        var Child = Person.$extend({
+
+        });
+
+        var GrandChild = Child.$extend({
+
+        });
+
+        // do test  
+        var child = new Child();
+        var grandChild = new GrandChild();
+        equal(child.initiated, true, "Expected " + true + " as the result, result was: " + child.initiated);
+        equal(grandChild.initiated, true, "Expected " + true + " as the result, result was: " + grandChild.initiated);
     });
 
     module("static");
