@@ -98,6 +98,49 @@
         equal(child.getName(), name, "Expected " + name + " as the result, result was: " + child.getName());
     });
 
+    // tests that the super constructor is called if no cunstructor is used in child class
+    test("override function", function () {
+
+        // three tests 
+        expect(3);
+
+        var parentName = "Parent";
+        var grandChildName = "GrandChild";
+
+        // prepare tests
+        var Parent = Class.$extend({
+            public: {
+                name: parentName,
+                getName: function() {
+                    return this.name;
+                }
+            }
+        });
+
+        var Child = Parent.$extend({
+
+        });
+
+        var GrandChild = Child.$extend({
+            public: {
+                gc_name: grandChildName,
+                getName: function() {
+                    return this.gc_name;
+                }
+            }
+        });
+
+        // prepare tests
+        var parent = new Parent();
+        var child = new Child();
+        var grandChild = new GrandChild();
+
+        // do tests
+        equal(parent.getName(), parentName, "Expected " + parentName + " as the result, result was: " + parent.getName());
+        equal(child.getName(), parentName, "Expected " + parentName + " as the result, result was: " + child.getName());
+        equal(grandChild.getName(), grandChildName, "Expected " + grandChildName + " as the result, result was: " + grandChild.getName());
+    });
+
     module("private");
 
     // test access to private variable via public function
